@@ -8,6 +8,7 @@ while (opcion != "0")
 {
     Console.WriteLine("\n=== CRUD DE PRODUCTOS ===");
     Console.WriteLine("1. Crear producto");
+    Console.WriteLine("2. Listar productos");
     Console.WriteLine("0. Salir");
     Console.Write("Elige una opción: ");
     opcion = Console.ReadLine() ?? "";
@@ -15,6 +16,10 @@ while (opcion != "0")
     if (opcion == "1")
     {
         CrearProducto();
+    }
+    else if (opcion == "2")
+    {
+        ListarProductos();
     }
 }
 
@@ -38,4 +43,19 @@ void CrearProducto()
     });
 
     Console.WriteLine($"Producto creado. Total en memoria: {productos.Count}");
+}
+
+void ListarProductos()
+{
+    if (productos.Count == 0)
+    {
+        Console.WriteLine("No hay productos registrados.");
+        return;
+    }
+
+    Console.WriteLine("\nID | Nombre | Precio | Stock");
+    foreach (var p in productos)
+    {
+        Console.WriteLine($"{p.Id} | {p.Nombre} | {p.Precio:C} | {p.Stock}");
+    }
 }
