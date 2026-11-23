@@ -10,6 +10,7 @@ while (opcion != "0")
     Console.WriteLine("1. Crear producto");
     Console.WriteLine("2. Listar productos");
     Console.WriteLine("3. Editar producto");
+    Console.WriteLine("4. Eliminar producto");
     Console.WriteLine("0. Salir");
     Console.Write("Elige una opción: ");
     opcion = Console.ReadLine() ?? "";
@@ -25,6 +26,10 @@ while (opcion != "0")
     else if (opcion == "3")
     {
         EditarProducto();
+    }
+    else if (opcion == "4")
+    {
+        EliminarProducto();
     }
 }
 
@@ -97,4 +102,20 @@ void EditarProducto()
     }
 
     Console.WriteLine("Producto actualizado.");
+}
+
+void EliminarProducto()
+{
+    Console.Write("Id del producto a eliminar: ");
+    int.TryParse(Console.ReadLine(), out var id);
+
+    var producto = productos.FirstOrDefault(p => p.Id == id);
+    if (producto == null)
+    {
+        Console.WriteLine("No existe un producto con ese Id.");
+        return;
+    }
+
+    productos.Remove(producto);
+    Console.WriteLine("Producto eliminado.");
 }
