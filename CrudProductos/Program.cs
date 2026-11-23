@@ -9,6 +9,7 @@ while (opcion != "0")
     Console.WriteLine("\n=== CRUD DE PRODUCTOS ===");
     Console.WriteLine("1. Crear producto");
     Console.WriteLine("2. Listar productos");
+    Console.WriteLine("3. Editar producto");
     Console.WriteLine("0. Salir");
     Console.Write("Elige una opción: ");
     opcion = Console.ReadLine() ?? "";
@@ -20,6 +21,10 @@ while (opcion != "0")
     else if (opcion == "2")
     {
         ListarProductos();
+    }
+    else if (opcion == "3")
+    {
+        EditarProducto();
     }
 }
 
@@ -58,4 +63,38 @@ void ListarProductos()
     {
         Console.WriteLine($"{p.Id} | {p.Nombre} | {p.Precio:C} | {p.Stock}");
     }
+}
+
+void EditarProducto()
+{
+    Console.Write("Id del producto a editar: ");
+    int.TryParse(Console.ReadLine(), out var id);
+
+    var producto = productos.FirstOrDefault(p => p.Id == id);
+    if (producto == null)
+    {
+        Console.WriteLine("No existe un producto con ese Id.");
+        return;
+    }
+
+    Console.Write($"Nuevo nombre ({producto.Nombre}): ");
+    var nombre = Console.ReadLine();
+    if (!string.IsNullOrWhiteSpace(nombre))
+    {
+        producto.Nombre = nombre;
+    }
+
+    Console.Write($"Nuevo precio ({producto.Precio}): ");
+    if (decimal.TryParse(Console.ReadLine(), out var precio))
+    {
+        producto.Precio = precio;
+    }
+
+    Console.Write($"Nuevo stock ({producto.Stock}): ");
+    if (int.TryParse(Console.ReadLine(), out var stock))
+    {
+        producto.Stock = stock;
+    }
+
+    Console.WriteLine("Producto actualizado.");
 }
